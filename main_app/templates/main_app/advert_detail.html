@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-3">
+  {% if images %}
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner bckg-img">
+      {% for obj in images %}
+      <div class="carousel-item  {% if forloop.counter == 1 %} active {% endif %}">
+        <img src="{{obj.image.url}}" class="d-block w-25 mx-auto mt-3" width=350 height=250 alt="...">
+      </div>
+      {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  {% endif %}
+
+  <div class="card border-dark mb-2">
+    <div class="card-header text-white bg-dark">{{advert.date}}</div>
+    <div class="card-body">
+      <h5 class="card-title">Заголовок: {{advert.title}}</h5>
+      <hr>
+      <h6 class="card-title">Телефон: {{advert.telephone_number}}</h6>
+      <h6 class="card-title">Элекронный адрес: {{advert.email}}</h6>
+      <p class="card-text">{{advert.text}}</p>
+      {% if access %}
+      <a href="{{advert.get_update_form_url}}" class="btn btn-dark">Редактировать</a>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Удалить</button>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Подтверждение</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Вы уверены что хотите удалить объявление:<br> "{{advert.title}}"
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        <form action="{{ advert.get_delete_form_url }}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">
+            Удалить
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

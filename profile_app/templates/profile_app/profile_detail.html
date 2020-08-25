@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %} {{title}}: {{profile.user}} {% endblock %}
+
+{% block content %}
+
+<div class="container mt-3">
+
+  <div class="card border-dark mb-2">
+    <div class="card-header text-white bg-dark">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          {{profile.user}}
+        </div>
+        <div class="col-md-6 text-right">
+          <a class="btn btn-dark m-0 btn-sm" href="{{profile.get_udate_form_url}}">Редактировать</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="media">
+        <img src="{{profile.photo.url}}" width="20%" height="20%" class="mr-3" alt="">
+        <div class="media-body">
+          <h5 class="card-title">
+            Имя: {% if profile.first_name != None%}
+            {{profile.first_name}}
+            {% else %}
+            -
+            {% endif %}
+          </h5>
+          <h5 class="card-title">
+            Фамилие: {% if profile.last_name != None%}
+            {{profile.last_name}}
+            {% else %}
+            -
+            {% endif %}
+          </h5>
+          <h5 class="card-title">Телефон: {{profile.telephone_number}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

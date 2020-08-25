@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load i18n %}
+{% load account account %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="container-sm mt-3" style="width: 50%;">
+  <h1>{% trans "Авторизация" %}</h1>
+  <p>{% blocktrans %}У вас еще нет учетной записи?
+    <br>Создать учетную запись – просто, быстро и бесплатно
+    <a href="{{ signup_url }}">Создать учетную запись</a>.{% endblocktrans %}</p>
+
+
+  <form class="login" method="POST" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+    <button class="btn btn-dark btn-block" type="submit">{% trans "Авторизация" %}</button>
+    <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Забыли пароль?" %}</a>
+  </form>
+  <script src="{% static 'project/script/allauth-style-login.js' %}"></script>
+</div>
+
+{% endblock %}

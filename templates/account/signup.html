@@ -1,0 +1,26 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+
+{% block head_title %}{% trans "Регистрация" %}{% endblock %}
+
+{% block content %}
+<div class="container-sm mt-3" style="width: 50%;">
+  <h1>{% trans "Регистрация" %}</h1>
+
+  <p>{% blocktrans %}Есть учетная запись? <a href="{{ login_url }}">Авторизация</a>.{% endblocktrans %}</p>
+
+  <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+    <button class="btn btn-dark btn-block" type="submit">{% trans "Регистрация" %} </button>
+  </form>
+</div>
+<script src="{% static 'project/script/allauth-style-signup.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+.bckg-img{
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+
+    border-radius: 15px;
+
+    background-color: #343a40;
+}
+
+.errorlist{
+    color: red;
+}
+
+.dsp-none{
+    display: none;
+}

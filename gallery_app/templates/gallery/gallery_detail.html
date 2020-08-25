@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %} {{title}} {% endblock %}
+{% block content %}
+
+<div class="container mt-3" style="width: 50%;">
+
+  <div class="card border-dark mb-2">
+    <div class="card-header text-white bg-dark">Галерея: {{gallery.title}}
+      <div class="mt-2">
+        <a href="{% url 'image_create' gallery.slug %}" class="btn btn-primary btn-sm">Добавить изображение</a>
+        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteGallery">Удалить
+          Галерею</button>
+      </div>
+
+    </div>
+    <div class="card-body">
+      {% for image in page_obj %}
+      <form action="{{image.get_delete_form_url}}" method="POST">
+        {% csrf_token %}
+        <div class="media">
+          <img src="{{image.image.url}}" class="mr-3 mb-2" width="20%" alt="...">
+          <div class="media-body">
+            <h5 class="mt-0">{{image}}</h5>
+            <button class="btn btn-danger btn-sm" type="submit">Удалить изображение</button>
+          </div>
+        </div>
+      </form>
+      {% endfor %}
+
+      {% if access %}
+      <a href="{{gallery.get_update_form_url}}" class="btn btn-dark">Редактировать</a>
+      {% endif %}
+    </div>
+  </div>
+  {% include 'include_general/pagination.html' %}
+</div>
+
+<!-- Modal Gallery-->
+<div class="modal fade" id="deleteGallery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Подтверждение</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Вы уверены что хотите удалить галерею:<br> "{{gallery.title}}"
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        <form action="{{ gallery.get_delete_form_url }}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">
+            Удалить
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

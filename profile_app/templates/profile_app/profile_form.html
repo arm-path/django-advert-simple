@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+<div class="container-sm mt-3 mb-3" style="width: 70%;">
+    <div class="card border-dark mb-2">
+        <form action="" method="POST" enctype="multipart/form-data">
+            <div class="card-header text-white bg-dark">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        {{title}}
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button class="btn btn-dark m-0 btn-sm" type="submit">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-dark btn-block btn-lg" type="submit">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

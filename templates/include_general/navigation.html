@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'advert_list' %}">Объявления</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'advert_list' %}">Начальная страница <span
+                        class="sr-only">(current)</span></a>
+            </li>
+            <!-- <li class="nav-item">
+          <a class="nav-link" href="#">Ссылка</a>
+        </li> -->
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Административная панель
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                    <a class="dropdown-item" href="{% url 'profile_detail' user.profile.pk %}">Профиль пользователя</a>
+                    <a class="dropdown-item" href="{% url 'advert_list_user'%}">Список объявлений</a>
+                    <a class="dropdown-item" href="{% url 'advert_create' %}">Создать объявление</a>
+                    <a class="dropdown-item" href="{% url 'gallery_list' %}">Список галереи</a>
+                    <a class="dropdown-item" href="{% url 'gallery_create' %}">Создать галерею</a>
+                </div>
+            </li>
+            {% endif %}
+        </ul>
+        <form action="{% url 'advert_list_search' %}" method="GET" class="form-inline my-2 my-lg-0">
+            <input name="search" id="search" class="form-control mr-sm-2 border-dark" type="search"
+                placeholder="Найдет все!" aria-label="Search">
+            <button class="btn btn-outline-secondary my-2 my-sm-0 mr-3 " type="submit">Поиск</button>
+        </form>
+        {% if user.is_authenticated %}
+        <span class="text-white"><b> &nbsp;{{ user.username }}&nbsp; </b></span>
+        <a class="btn btn-outline-secondary my-2 my-sm-0 ml-1" href="{% url 'account_logout' %}">Выйти</a>
+        {% else %}
+        <a class="btn btn-outline-secondary my-2 my-sm-0 ml-1" href="{% url 'account_login' %}">Вход</a>
+        <a class="btn btn-outline-secondary my-2 my-sm-0 ml-1" href="{% url 'account_signup' %}">Регистрация</a>
+        {% endif %}
+    </div>
+</nav>
