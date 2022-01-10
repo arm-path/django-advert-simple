@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '' #TODO: Ввести секретный ключ
+SECRET_KEY = 'dghcHLDYdlv68d-373jvrvejvioacasaUIFEWkoefeofjeJEIVWEo639423ifm94fkvm(cdc9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,12 +40,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    # Популярные плагины для авторизации,
-    # https://django-allauth.readthedocs.io/en/latest/installation.html
-    # 'allauth.socialaccount.providers.google',
-    # 'allauth.socialaccount.providers.vk',
-    # allauth.socialaccount.providers.facebook',
-    # 'allauth.socialaccount.providers.steam',
     'gallery_app.apps.GalleryAppConfig',
     'profile_app.apps.ProfileAppConfig',
     'main_app.apps.MainAppConfig',
